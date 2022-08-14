@@ -32,6 +32,6 @@ public class UserDao {
     }
     public void storeUser(User user) {
         jdbcTemplate.update("INSERT INTO users (first_name, last_name, email, phone , password) VALUES(? , ? , ? , ? , '123')", user.getFirstName(),
-                user.getEmail(), user.getEmail(), user.getPhone());
+                user.getLastName(), user.getEmail(), user.getPhone());
     }
 }
