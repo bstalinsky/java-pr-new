@@ -1,11 +1,13 @@
 package com.app.services;
 
 import com.app.dao.CatalogDao;
+import com.app.model.CatalogItem;
 import com.app.model.Category;
 import com.app.model.Subcategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -14,18 +16,40 @@ public class AdminService {
     @Autowired
     private CatalogDao catalogDao;
 
-    public List<Category> getCategories(){
+    public List<Category> getCategories() {
         return catalogDao.getCategories();
     }
 
-    public void storeCategory(Category category){
+    public void storeCategory(Category category) {
+        //Здесь могла бы быть ваша валидация :)
         catalogDao.storeCategory(category);
     }
 
-    public List<Subcategory> getSubcategories(){
+    public List<Subcategory> getSubcategories() {
         return catalogDao.getSubcategories();
     }
-    public void storeSubcategory(Subcategory subcategory){
+
+    public List<Subcategory> getSubcategories(long id) {
+        return catalogDao.getSubcategories(id);
+    }
+
+    public void storeSubcategory(Subcategory subcategory) {
+        //Здесь могла бы быть ваша валидация :)
         catalogDao.storeSubcategory(subcategory);
+    }
+
+    public List<CatalogItem> getItems() {
+        return catalogDao.getItems();
+    }
+
+    public List<CatalogItem> getItemsById(long id) {
+        return catalogDao.getItemsById(id);
+    }
+
+    public void storeItem(CatalogItem item) {
+        //Здесь могла бы быть ваша валидация :)
+        String newPrice = item.getPrice().toString().replace(',', '.');
+        item.setPrice(new BigDecimal(newPrice));
+        catalogDao.storeItem(item);
     }
 }
